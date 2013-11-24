@@ -4,17 +4,30 @@ import glob
 import sqlite3
 axlsql = open("import.xml","w")
 
+def saninitse(input):
+	input=input.replace("&","&amp;").replace("'","&apos;").replace("<","&lt;").replace(">"."&gt").replace('"','&quot;')
+	return input
+
 def personaladdressbook(enduser, firstname, lastname, nickname, email):
+  enduser	=saninitse(enduser)
+  firstname	=saninitse(firstname)
+  lastname	=saninitse(lastname)
+  nickname	=saninitse(nickname)
+  email		=saninitse(email)
   query='INSERT into personaladdressbook (fkenduser, firstname, lastname, nickname, email) VALUES ((select pkid from enduser where userid = "'+enduser+'"),"'+firstname+'","'+lastname+'","'+nickname+'","'+email+'")'
   row="<sql update='"+query+"'/>\n"
   axlsql.write(row)
 
 def personalphonebook(enduser, nickname, tkpersonalphonenumber, phonenumber):
+  enduser	=saninitse(enduser)
+  nickname	=saninitse(nickname)
   query='INSERT into personalphonebook (fkenduser, fkpersonaladdressbook, tkpersonalphonenumber, phonenumber) VALUES ((select pkid from enduser where userid = "'+enduser+'"),(SELECT pkid FROM personaladdressbook WHERE nickname = "'+nickname+'" AND fkenduser = (select pkid from enduser where userid = "'+enduser+'")),"'+tkpersonalphonenumber+'","'+phonenumber+'")'
   row="<sql update='"+query+"'/>\n"
   axlsql.write(row)
 
 def speeddial(device, speeddialindex, speeddialnumber, label, labelascii):
+  label		=saninitse(label)
+  labelascii=saninitse(labelascii)
   query='INSERT INTO speeddial (fkdevice, speeddialindex, speeddialnumber, label, labelascii) VALUES ((SELECT pkid FROM device WHERE name = "'+device+'"),"'+speeddialindex+'","'+speeddialnumber+'","'+label+'","'+labelascii+'")'
   row="<sql update='"+query+"'/>\n"
   axlsql.write(row)
