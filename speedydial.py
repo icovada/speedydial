@@ -20,7 +20,7 @@ c = conn.cursor()
 c.execute('CREATE TABLE enduser (pkid TEXT, firstname TEXT, lastname TEXT, userid TEXT)')
 c.execute('CREATE TABLE personalphonebook (pkid TEXT, fkenduser TEXT, fkpersonaladdressbook TEXT, tkpersonalphonenumber TEXT, phonenumber TEXT, personalfastdialindex TEXT)')
 c.execute('CREATE TABLE personaladdressbook (pkid TEXT, fkenduser TEXT, firstname TEXT, lastname TEXT, email TEXT, nickname TEXT, fkenduser_contact TEXT)')
-c.execute('CREATE TABLE speeddial (pkid TEXT, device TEXT, speeddialindex TEXT, speeddialnumber TEXT, label TEXT, labelascii TEXT, fkpersonalphonebook TEXT)')
+c.execute('CREATE TABLE speeddial (pkid TEXT, fkdevice TEXT, speeddialindex TEXT, speeddialnumber TEXT, label TEXT, labelascii TEXT, fkpersonalphonebook TEXT)')
 c.execute('CREATE TABLE device (pkid TEXT, name TEXT, description TEXT)')
 
 conn.commit()
@@ -48,25 +48,17 @@ for i in parsexml():
 
 conn.commit()
 
-c.execute("select device.name from device inner join ")
+c.execute("select device.name, device.pkid from device inner join speeddial on device.pkid=speeddial.fkdevice group by speeddial.fkdevice") #Get devices with speeddials
 
+devicelist = c.fetchall()
 
-######  old code, to delete after beign rewritten in sql
-for i in devicename:
-    for j in range(0, len(data)):
-       try:
-           null=data[j].index(i)
-       except ValueError:
-           pass
-
-count = 0
-for i in devicename:
+for i in devicelist:
+  c.execute("select speeddialindex, speeddialnumber, label, labelascii from speeddial WHERE fkdevice = (?)",(i[1],))
   print(i)
-  out = "out/"+i
-  csvfile = open(out+".csv", "w")
+  out = "out/"+i[0]+".csv"
+  csvfile = open(out, "w")
   spamwriter = csv.writer(csvfile)
-  for j in groups[count]:
-    print(j[1:])
-    spamwriter.writerow(j[2:])  #Throw away device name and description, we do not need them here
+  for j in c.fetchall():
+    print(j)
+    spamwriter.writerow(j)
   csvfile.close()
-  count= count+1
