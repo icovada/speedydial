@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 from bs4 import BeautifulSoup
-import itertools
 import csv
 import sqlite3
 
