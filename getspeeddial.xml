@@ -9,7 +9,7 @@
 >
 ]>
 <data>
-	<sql query="select * from enduser"/>
+	<sql query="select pkid, firstname, lastname, userid  from enduser"/>
 	<sql query="select * from personalphonebook"/>
 	<sql query="select * from personaladdressbook"/>
 </data>

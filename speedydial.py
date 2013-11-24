@@ -2,6 +2,14 @@
 from bs4 import BeautifulSoup
 import itertools
 import csv
+import sqlite3
+
+conn = sqlite3.connect(':memory:')
+c = conn.cursor()
+c.execute('CREATE TABLE enduser (pkid TEXT, firstname TEXT, lastname TEXT, userid TEXT)')
+c.execute('CREATE TABLE personalphonebook (pkid TEXT, fkenduser TEXT, fkpersonaladdressbook TEXT, tkpersonalphonenumber TEXT, phonenumber TEXT, personalfastdialindex TEXT)')
+c.execute('CREATE TABLE personaladdressbook (pkid TEXT, fkenduser TEXT, firstname TEXT, lastname TEXT, email TEXT, nickname TEXT, fkenduser_contact TEXT)')
+conn.commit()
 
 response = open("getspeeddial.response","r")
 
@@ -15,6 +23,14 @@ for i in t.row.parent.children:
 	for j in i.children:
 		b.append(j.text)
 	a.append(b)
+
+for i in a:
+  c.execute('INSERT INTO enduser values (?,?,?,?)',i)
+
+conn.commit()
+
+
+
 
 groups = []
 devicename = []
