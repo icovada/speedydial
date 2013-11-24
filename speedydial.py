@@ -12,7 +12,7 @@ c.execute('CREATE TABLE personaladdressbook (pkid TEXT, fkenduser TEXT, firstnam
 conn.commit()
 
 response = open("getspeeddial.response","r")
-
+#####enduser
 print(response.readline()) #Throw away first line
 t = BeautifulSoup(response.readline())
 
@@ -30,6 +30,40 @@ for i in a:
 conn.commit()
 
 
+#####personalphonebook
+print(response.readline()) #Throw away first line
+t = BeautifulSoup(response.readline())
+
+a=[]
+
+for i in t.row.parent.children:
+  b = []
+  for j in i.children:
+    b.append(j.text)
+  a.append(b)
+
+for i in a:
+  c.execute('INSERT INTO personalphonebook values (?,?,?,?,?,?)',i)
+
+conn.commit()
+
+
+#####personaladdressbook
+print(response.readline()) #Throw away first line
+t = BeautifulSoup(response.readline())
+
+a=[]
+
+for i in t.row.parent.children:
+  b = []
+  for j in i.children:
+    b.append(j.text)
+  a.append(b)
+
+for i in a:
+  c.execute('INSERT INTO enduser values (?,?,?,?,?,?,?)',i)
+
+conn.commit()
 
 
 groups = []
