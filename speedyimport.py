@@ -15,7 +15,7 @@ def personalphonebook(enduser, nickname, tkpersonalphonenumber, phonenumber):
   axlsql.write(row)
 
 def speeddial(device, speeddialindex, speeddialnumber, label, labelascii):
-  query='INSERT INTO speeddial (fkdevice, speeddialindex, speeddialnumber, label, labelascii) VALUES ((SELECT pid FROM device WHERE name = "'+device+'"),"'+speeddialindex+'","'+speeddialnumber+'","'+label+'","'+labelascii+'")'
+  query='INSERT INTO speeddial (fkdevice, speeddialindex, speeddialnumber, label, labelascii) VALUES ((SELECT pkid FROM device WHERE name = "'+device+'"),"'+speeddialindex+'","'+speeddialnumber+'","'+label+'","'+labelascii+'")'
   row="<sql update='"+query+"'/>\n"
   axlsql.write(row)
 
