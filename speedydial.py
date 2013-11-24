@@ -35,19 +35,16 @@ for i in data:
 
 #####personaladdressbook
 data=parsexml()
-for i in a:
+for i in data:
   c.execute('INSERT INTO personaladdressbook values (?,?,?,?,?,?,?)',i)
 
 conn.commit()
 
 
-groups = []
-devicename = []
-data = sorted(a, key=lambda x : x[0])
-for k, g in itertools.groupby(data, lambda x : x[0]):
-    groups.append(list(g))      # Store group iterator as a list
-    devicename.append(k)
 
+
+
+######  old code, to delete after beign rewritten in sql
 for i in devicename:
     for j in range(0, len(data)):
        try:
