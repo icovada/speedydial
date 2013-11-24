@@ -5,17 +5,17 @@ import sqlite3
 axlsql = open("import.xml","w")
 
 def personaladdressbook(enduser, firstname, lastname, nickname, email):
-  query="INSERT into personaladdressbook (fkenduser, firstname, lastname, nickname, email) VALUES ((select pkid from enduser where userid = '"+enduser+"'),'"+firstname+"','"+lastname+"','"+nickname+"','"+email+"')'"
+  query='INSERT into personaladdressbook (fkenduser, firstname, lastname, nickname, email) VALUES ((select pkid from enduser where userid = "'+enduser+'"),"'+firstname+'","'+lastname+'","'+nickname+'","'+email+'")'
   row="<sql query='"+query+"'/>\n"
   axlsql.write(row)
 
 def personalphonebook(enduser, nickname, tkpersonalphonenumber, phonenumber):
-  query="INSERT into personalphonebook (fkenduser, fkpersonaladdressbook, tkpersonalphonenumber, phonenumber) VALUES ((select pkid from enduser where userid = '"+enduser+"'),(SELECT pkid FROM personaladdressbook WHERE nickname = '"+nickname+"' AND fkenduser = (select pkid from enduser where userid = '"+enduser+"')),'"+tkpersonalphonenumber+"','"+phonenumber+"')"
+  query='INSERT into personalphonebook (fkenduser, fkpersonaladdressbook, tkpersonalphonenumber, phonenumber) VALUES ((select pkid from enduser where userid = "'+enduser+'"),(SELECT pkid FROM personaladdressbook WHERE nickname = "'+nickname+'" AND fkenduser = (select pkid from enduser where userid = "'+enduser+'")),"'+tkpersonalphonenumber+'","'+phonenumber+'")'
   row="<sql query='"+query+"'/>\n"
   axlsql.write(row)
 
 def speeddial(device, speeddialindex, speeddialnumber, label, labelascii):
-  query="INSERT INTO speeddial (fkdevice, speeddialindex, speeddialnumber, label, labelascii) VALUES ((SELECT pid FROM device WHERE name = '"+device+"'),'"+speeddialindex+"','"+speeddialnumber+"','"+label+"','"+labelascii+"')"
+  query='INSERT INTO speeddial (fkdevice, speeddialindex, speeddialnumber, label, labelascii) VALUES ((SELECT pid FROM device WHERE name = "'+device+'"),"'+speeddialindex+'","'+speeddialnumber+'","'+label+'","'+labelascii+'")'
   row="<sql query='"+query+"'/>\n"
   axlsql.write(row)
 
