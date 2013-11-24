@@ -5,18 +5,18 @@ import sqlite3
 axlsql = open("import.xml","w")
 
 def personaladdressbook(enduser, firstname, lastname, nickname, email):
-  query='INSERT into personaladdressbook (fkenduser, firstname, lastname, nickname, email) VALUES ((select pkid from enduser where userid = "'+enduser+'"),"'+firstname+'","'+lastname+'","'+nickname+'","'+email+'")'
-  row='<sql query="'+query+'"/>\n'
+  query="INSERT into personaladdressbook (fkenduser, firstname, lastname, nickname, email) VALUES ((select pkid from enduser where userid = '"+enduser+"'),'"+firstname+"','"+lastname+"','"+nickname+"','"+email+"')'"
+  row="<sql query='"+query+"'/>\n"
   axlsql.write(row)
 
 def personalphonebook(enduser, nickname, tkpersonalphonenumber, phonenumber):
-  query='INSERT into personalphonebook (fkenduser, fkpersonaladdressbook, tkpersonalphonenumber, phonenumber) VALUES ((select pkid from enduser where userid = "'+enduser+'"),(SELECT pkid FROM personaladdressbook WHERE nickname = "'+nickname+'" AND fkenduser = (select pkid from enduser where userid = "'+enduser+'")),"'+tkpersonalphonenumber+'","'+phonenumber+'")'
-  row='<sql query="'+query+'"/>\n'
+  query="INSERT into personalphonebook (fkenduser, fkpersonaladdressbook, tkpersonalphonenumber, phonenumber) VALUES ((select pkid from enduser where userid = '"+enduser+"'),(SELECT pkid FROM personaladdressbook WHERE nickname = '"+nickname+"' AND fkenduser = (select pkid from enduser where userid = '"+enduser+"')),'"+tkpersonalphonenumber+"','"+phonenumber+"')"
+  row="<sql query='"+query+"'/>\n"
   axlsql.write(row)
 
 def speeddial(device, speeddialindex, speeddialnumber, label, labelascii):
-  query='INSERT INTO speeddial (fkdevice, speeddialindex, speeddialnumber, label, labelascii) VALUES ((SELECT pid FROM device WHERE name = "'+device+'"),"'+speeddialindex+'","'+speeddialnumber+'","'+label+'","'+labelascii+'")'
-  row='<sql query="'+query+'"/>\n'
+  query="INSERT INTO speeddial (fkdevice, speeddialindex, speeddialnumber, label, labelascii) VALUES ((SELECT pid FROM device WHERE name = '"+device+"'),'"+speeddialindex+"','"+speeddialnumber+"','"+label+"','"+labelascii+"')"
+  row="<sql query='"+query+"'/>\n"
   axlsql.write(row)
 
 axlsql.write("""<?xml version="1.0" encoding="UTF-8"?>
@@ -73,7 +73,7 @@ for file in speeddials:   #Import speeddials into database
   device.seek(0)
   reader= csv.reader(device, dialect)
   for i in reader:
-  	speeddial(devicename, reader[0], reader[1], reader[2], reader[3])
+  	speeddial(devicename, reader[0], reader[1], reader[2], re)
   	
 
 
