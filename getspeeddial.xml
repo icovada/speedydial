@@ -9,5 +9,7 @@
 >
 ]>
 <data>
-	<sql query="select d.name, d.description, sd.speeddialindex, sd.label, sd.labelascii, sd.speeddialnumber from speeddial as sd inner join device as d on sd.fkdevice=d.pkid order by d.name, sd.speeddialindex"/>
+	<sql query="select * from enduser"/>
+	<sql query="select * from personalphonebook"/>
+	<sql query="select * from personaladdressbook"/>
 </data>
