@@ -62,3 +62,18 @@ for i in devicelist:
     print(j)
     spamwriter.writerow(j)
   csvfile.close()
+
+c.execute("select enduser.userid, enduser.pkid from enduser inner join personaladdressbook on personaladdressbook.fkenduser=enduser.pkid group by enduser.userid, enduser.pkid")
+enduserwithcontacts = c.fetchall()
+
+for i in enduserwithcontacts:
+  c.execute("select pab.firstname, pab.lastname, pab.nickname, ppb.phonenumber, pab.email from personalphonebook as ppb inner join personaladdressbook as pab on ppb.fkpersonaladdressbook=pab.pkid WHERE pab.fkenduser = ?",(i[1],))
+  print(c.fetchall())
+
+
+
+
+
+
+
+
