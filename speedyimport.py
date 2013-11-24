@@ -5,7 +5,7 @@ import sqlite3
 axlsql = open("import.xml","w")
 
 def saninitse(input):
-	input=input.replace("&","&amp;").replace("'","&apos;").replace("<","&lt;").replace(">"."&gt").replace('"','&quot;')
+	input=input.replace("&","&amp;").replace("'","&apos;").replace("<","&lt;").replace(">","&gt;").replace('"','&quot;')
 	return input
 
 def personaladdressbook(enduser, firstname, lastname, nickname, email):
