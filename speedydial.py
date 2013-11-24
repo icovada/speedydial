@@ -24,18 +24,15 @@ conn.commit()
 
 response = open("getspeeddial.response","r")
 #####enduser
-data=parsexml()
-for i in data:
+for i in parsexml():
   c.execute('INSERT INTO enduser values (?,?,?,?)',i)
 
 #####personalphonebook
-data=parsexml()
-for i in data:
+for i in parsexml():
   c.execute('INSERT INTO personalphonebook values (?,?,?,?,?,?)',i)
 
 #####personaladdressbook
-data=parsexml()
-for i in data:
+for i in parsexml():
   c.execute('INSERT INTO personaladdressbook values (?,?,?,?,?,?,?)',i)
 
 conn.commit()
