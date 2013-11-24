@@ -34,7 +34,7 @@ count = 0
 for i in devicename:
   print(i)
   out = "out/"+i
-  csvfile = open(out, "w")
+  csvfile = open(out+".csv", "w")
   spamwriter = csv.writer(csvfile)
   for j in groups[count]:
     print(j[1:])
