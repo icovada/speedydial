@@ -20,7 +20,6 @@ c.execute('CREATE TABLE enduser (pkid TEXT, firstname TEXT, lastname TEXT, useri
 c.execute('CREATE TABLE personalphonebook (pkid TEXT, fkenduser TEXT, fkpersonaladdressbook TEXT, tkpersonalphonenumber TEXT, phonenumber TEXT, personalfastdialindex TEXT)')
 c.execute('CREATE TABLE personaladdressbook (pkid TEXT, fkenduser TEXT, firstname TEXT, lastname TEXT, email TEXT, nickname TEXT, fkenduser_contact TEXT)')
 c.execute('CREATE TABLE speeddial (pkid TEXT, fkdevice TEXT, speeddialindex TEXT, speeddialnumber TEXT, label TEXT, labelascii TEXT, fkpersonalphonebook TEXT)')
-c.execute('CREATE TABLE typepersonalphonenumber (enum TEXT, name TEXT, moniker TEXT)')
 c.execute('CREATE TABLE device (pkid TEXT, name TEXT, description TEXT)')
 
 conn.commit()
@@ -41,10 +40,6 @@ for i in parsexml():
 #####speeddial
 for i in parsexml():
   c.execute('INSERT INTO speeddial values (?,?,?,?,?,?,?)',i)
-
-#####typepersonalphonenumber
-for i in parsexml():
-  c.execute('INSERT INTO typepersonalphonenumber values (?,?,?)',i)
 
 #####device
 for i in parsexml():
@@ -71,7 +66,7 @@ c.execute("select enduser.userid, enduser.pkid from enduser inner join personala
 enduserwithcontacts = c.fetchall()
 
 for i in enduserwithcontacts:
-  c.execute("select pab.firstname, pab.lastname, pab.nickname, ppb.phonenumber, tppn.name, pab.email from personalphonebook as ppb inner join personaladdressbook as pab on ppb.fkpersonaladdressbook=pab.pkid inner join typepersonalphonenumber as tppn on ppb.tkpersonalphonenumber=tppn.enum WHERE pab.fkenduser = ?",(i[1],))
+  c.execute("select pab.firstname, pab.lastname, pab.nickname, ppb.phonenumber, ppb.tkpersonalphonenumber, pab.email from personalphonebook as ppb inner join personaladdressbook as pab on ppb.fkpersonaladdressbook=pab.pkid WHERE pab.fkenduser = ?",(i[1],))
   out = "output/contacts/out/"+i[0]+".csv"
   csvfile = open(out, "w")
   csvwriter = csv.writer(csvfile)
