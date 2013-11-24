@@ -55,7 +55,7 @@ devicelist = c.fetchall()
 for i in devicelist:
   c.execute("select speeddialindex, speeddialnumber, label, labelascii from speeddial WHERE fkdevice = (?)",(i[1],))
   print(i)
-  out = "out/"+i[0]+".csv"
+  out = "output/speeddial/out/"+i[0]+".csv"
   csvfile = open(out, "w")
   spamwriter = csv.writer(csvfile)
   for j in c.fetchall():
