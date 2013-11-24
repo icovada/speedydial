@@ -73,7 +73,7 @@ for file in speeddials:   #Import speeddials into database
   device.seek(0)
   reader= csv.reader(device, dialect)
   for i in reader:
-  	speeddial(devicename, reader[0], reader[1], reader[2], re)
+  	speeddial(devicename, i[0], i[1], i[2], i[3])
   	
 
 
