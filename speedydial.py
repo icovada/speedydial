@@ -20,6 +20,8 @@ c = conn.cursor()
 c.execute('CREATE TABLE enduser (pkid TEXT, firstname TEXT, lastname TEXT, userid TEXT)')
 c.execute('CREATE TABLE personalphonebook (pkid TEXT, fkenduser TEXT, fkpersonaladdressbook TEXT, tkpersonalphonenumber TEXT, phonenumber TEXT, personalfastdialindex TEXT)')
 c.execute('CREATE TABLE personaladdressbook (pkid TEXT, fkenduser TEXT, firstname TEXT, lastname TEXT, email TEXT, nickname TEXT, fkenduser_contact TEXT)')
+c.execute('CREATE TABLE device (pkid TEXT, name TEXT, description TEXT)')
+
 conn.commit()
 
 response = open("getspeeddial.response","r")
@@ -35,9 +37,11 @@ for i in parsexml():
 for i in parsexml():
   c.execute('INSERT INTO personaladdressbook values (?,?,?,?,?,?,?)',i)
 
+#####device
+for i in parsexml():
+  c.execute('INSERT INTO device values (?,?,?)',i)
+
 conn.commit()
-
-
 
 
 
