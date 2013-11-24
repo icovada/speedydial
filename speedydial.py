@@ -5,7 +5,7 @@ import csv
 
 response = open("getspeeddial.response","r")
 
-print(response.readline())
+print(response.readline()) #Throw away first line
 t = BeautifulSoup(response.readline())
 
 a=[]
@@ -17,13 +17,13 @@ for i in t.row.parent.children:
 	a.append(b)
 
 groups = []
-uniquekeys = []
-data = sorted(a, key=lambda x : x[1])
-for k, g in itertools.groupby(data, lambda x : x[1]):
+devicename = []
+data = sorted(a, key=lambda x : x[0])
+for k, g in itertools.groupby(data, lambda x : x[0]):
     groups.append(list(g))      # Store group iterator as a list
-    uniquekeys.append(k)
+    devicename.append(k)
 
-for i in uniquekeys:
+for i in devicename:
     for j in range(0, len(data)):
        try:
            null=data[j].index(i)
@@ -31,13 +31,13 @@ for i in uniquekeys:
            pass
 
 count = 0
-for i in uniquekeys:
+for i in devicename:
   print(i)
   out = "out/"+i
   csvfile = open(out, "w")
   spamwriter = csv.writer(csvfile)
   for j in groups[count]:
-    print(j)
-    spamwriter.writerow(j)
+    print(j[1:])
+    spamwriter.writerow(j[2:])  #Throw away device name and description, we do not need them here
   csvfile.close()
   count= count+1
