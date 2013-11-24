@@ -12,5 +12,6 @@
 	<sql query="select pkid, firstname, lastname, userid  from enduser"/>
 	<sql query="select * from personalphonebook"/>
 	<sql query="select * from personaladdressbook"/>
+	<sql query="select * from speeddial"/>
 	<sql query="select pkid, name, description from device"
 </data>
