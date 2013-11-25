@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+
+#This code is licensed GPLv2
+
 from bs4 import BeautifulSoup
 import csv
 import sqlite3

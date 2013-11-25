@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+
+#This code is licensed GPLv2
+
 import csv
 import glob
 import sqlite3
