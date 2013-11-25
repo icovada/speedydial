@@ -16,6 +16,14 @@ As per its point 11, there is no warranty.
 Warning
 -------
 
-This code could seriously break your infrastructure. And that would definitely get you fired. And it would still not be my fault.+ù
+This code could seriously break your infrastructure. And that would definitely get you fired. And it would still not be my fault.
+
+None of this is associated with, approved by, or remotely endorsed by, Cisco Systems.
+I am just trying to make my life easier by seriously complicating it.
+I am willing to take risks. Decide for yourself if you are too.
+
+ALWAYS have a COMPLETE backup before doing anything.
+
+More important, I have no idea if the TAC would approve of this, and what would happen if they found out you used this code. It could mean the end of your warranty and support contract.
 
 If you have no idea what SQL is, look away and don't come back.
